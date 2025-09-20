@@ -16,21 +16,21 @@
 
 ---
 
-| 昵称        | GitHub                                                | 博客 |
-| ----------- | ----------------------------------------------------- | ---- |
-| 空梦        | [EmptyDreams](https://github.com/EmptyDreams)         |      |
-| 绫袅LingNc  | [LingNc](https://github.com/LingNc)                   |      |
-| 十有\*\*    | [billionray](https://github.com/billionray)           |      |
-| 探姬        | [ProbiusOfficial](https://github.com/ProbiusOfficial) |      |
-| 雨奇晴好    | [xwwwb](https://github.com/xwwwb)                     |      |
-| Caiki       | [Cai-ki](https://github.com/Cai-ki)                   |      |
-| EmptyDreams | [EmptyDreams](https://github.com/EmptyDreams)         |      |
-| Frex        | [FrexCheat](https://github.com/FrexCheat)             |      |
-| RaXianch    | [DeSireFire](https://github.com/DeSireFire)           |      |
-| ShiYi       | [ShiYioo](https://github.com/ShiYioo)                 |      |
-| SkySummer   | [SkySummer](https://github.com/SkySummer)             |      |
-| Sleepwf     | [Games55k](https://github.com/Games55k)               |      |
-| vow         | [vow0328](https://github.com/vow0328)                 |      |
+| 昵称          | GitHub                                                | 博客/主页                                 |
+| ------------- | ----------------------------------------------------- | ----------------------------------------- |
+| 十有\*\*      | [billionray](https://github.com/billionray)           |                                           |
+| 空梦          | [EmptyDreams](https://github.com/EmptyDreams)         | [山岳库博](https://kmar.top/)             |
+| 绫袅LingNc    | [LingNc](https://github.com/LingNc)                   |                                           |
+| 雨奇晴好      | [xwwwb](https://github.com/xwwwb)                     |                                           |
+| ShiYi         | [ShiYioo](https://github.com/ShiYioo)                 | [Shi Yi の 小库](https://blog.shiyio.uk/) |
+| SkySummer     | [SkySummer](https://github.com/SkySummer)             |                                           |
+| 探姬          | [ProbiusOfficial](https://github.com/ProbiusOfficial) | [Hello CTF](https://hello-ctf.com/)       |
+| Caiki         | [Cai-ki](https://github.com/Cai-ki)                   |                                           |
+| Frex          | [FrexCheat](https://github.com/FrexCheat)             |                                           |
+| RaXianch      | [DeSireFire](https://github.com/DeSireFire)           |                                           |
+| Sleepwf       | [Games55k](https://github.com/Games55k)               |                                           |
+| vow           | [vow0328](https://github.com/vow0328)                 |                                           |
+| Dang Wenliang | [fookwood](https://github.com/fookwood)               | [闷瓜蛋子](https://fookwood.com/)         |
 
 ---
 
@@ -38,9 +38,15 @@
 
 收集中 ... （半夜了 我先睡个觉zzz）
 
-## 信息更新
+## 快速添加
 
-- 如果你正在学习，欢迎来通过issue或pr提交自己！
+- 可以直接修改 README.md 在表格后新起一行并提交 pr
+
+- 或fork本项目并在本地运行 `node add.js` 进行快速添加
+
+## 相关信息
+
+- 如果你正在校学习，欢迎来通过issue或pr提交自己以及自己的项目！
 
 - 如果收集了您的信息，但是不希望出现在本项目，可以通过私发邮箱 hi@dogxi.me 联系删除，非常抱歉！
 
