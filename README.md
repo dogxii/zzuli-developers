@@ -32,6 +32,7 @@
 | vow           | [vow0328](https://github.com/vow0328)                 |                                           |
 | Dang Wenliang | [fookwood](https://github.com/fookwood)               | [闷瓜蛋子](https://fookwood.com/)         |
 | GlassSky01    | [GlassSky01](https://github.com/GlassSky01)           |                                           |
+| Dogxi         | [dogxii](https://github.com/dogxii)                   | [狗窝子](https://blog.dogxi.me/)          |
 
 ---
 
