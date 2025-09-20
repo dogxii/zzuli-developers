@@ -1,6 +1,10 @@
 # zzuli-developers
 
-![zzuli-developers](https://socialify.git.ci/dogxii/zzuli-developers/image?custom_language=GitHub&description=1&font=Source+Code+Pro&issues=1&language=1&logo=https%3A%2F%2Fkys.zzuli.edu.cn%2Fauthentication%2Fpublic%2FgetImg%3Fpath%3D%255C2025%255C9%255C1758306251136.jpg&name=1&pattern=Plus&pulls=1&stargazers=1&theme=Auto)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./banner/banner-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="./banner/banner-light.webp">
+  <img alt="zzuli-developers" src="./banner/banner-light.webp">
+</picture>
 
 收集所有 zzuli 开发者校友信息，看看大家都在干什么 :D
 
