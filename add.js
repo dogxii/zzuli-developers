@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
+const https = require("https");
 
 // 配置文件路径
 const README_PATH = path.join(__dirname, "README.md");
@@ -11,6 +12,52 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
+// 从GitHub API获取用户信息
+function fetchGitHubUserInfo(username) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: "api.github.com",
+      path: `/users/${username}`,
+      method: "GET",
+      headers: {
+        "User-Agent": "zzuli-developers-script",
+      },
+    };
+
+    const req = https.request(options, (res) => {
+      if (res.statusCode === 404) {
+        reject(new Error(`GitHub用户 ${username} 不存在`));
+        return;
+      }
+
+      if (res.statusCode !== 200) {
+        reject(new Error(`GitHub API请求失败，状态码: ${res.statusCode}`));
+        return;
+      }
+
+      let data = "";
+      res.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      res.on("end", () => {
+        try {
+          const userInfo = JSON.parse(data);
+          resolve(userInfo);
+        } catch (error) {
+          reject(new Error("解析GitHub API响应失败"));
+        }
+      });
+    });
+
+    req.on("error", (error) => {
+      reject(new Error(`请求GitHub API失败: ${error.message}`));
+    });
+
+    req.end();
+  });
+}
 
 // 读取 README 文件
 function readReadmeFile() {
@@ -104,30 +151,71 @@ function parseTableData(content) {
 }
 
 // 添加新用户
-function addUser(users, nickname, username, blog = "", blogUrl = "") {
+async function addUser(
+  users,
+  username,
+  providedNickname = "",
+  blog = "",
+  blogUrl = "",
+) {
   // 检查用户是否已存在
   if (users.some((user) => user.username === username)) {
     console.log(`用户 ${username} 已存在!`);
     return false;
   }
 
-  // 添加新用户
-  users.push({
-    nickname,
-    username,
-    githubUrl: `https://github.com/${username}`,
-    blog,
-    blogUrl,
-  });
+  try {
+    // 从GitHub API获取用户信息
+    const userInfo = await fetchGitHubUserInfo(username);
 
-  console.log(`成功添加用户 ${username}!`);
-  return true;
+    // 使用GitHub名称作为默认昵称（如果提供了昵称则使用提供的）
+    const nickname = providedNickname.trim() || userInfo.name || username;
+
+    // 添加新用户
+    users.push({
+      nickname,
+      username,
+      githubUrl: `https://github.com/${username}`,
+      blog,
+      blogUrl,
+    });
+
+    console.log(`成功添加用户 ${username}! GitHub昵称: ${nickname}`);
+    return true;
+  } catch (error) {
+    console.error(error.message);
+
+    // 如果API获取失败，使用提供的昵称或用户名
+    if (
+      providedNickname.trim() ||
+      (await confirm(
+        `无法获取GitHub信息，是否使用用户名 ${username} 作为昵称? (y/n): `,
+      ))
+    ) {
+      const nickname = providedNickname.trim() || username;
+
+      users.push({
+        nickname,
+        username,
+        githubUrl: `https://github.com/${username}`,
+        blog,
+        blogUrl,
+      });
+
+      console.log(`已使用昵称 ${nickname} 添加用户 ${username}`);
+      return true;
+    }
+
+    return false;
+  }
 }
 
-// 按照昵称字母顺序排序
-function sortUsersByNickname(users) {
-  return users.sort((a, b) => {
-    return a.nickname.localeCompare(b.nickname, "zh-CN");
+// 确认提示
+function confirm(question) {
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      resolve(answer.toLowerCase() === "y");
+    });
   });
 }
 
@@ -141,7 +229,7 @@ function generateNewTableContent(users) {
     if (user.blog && user.blogUrl) {
       blogPart = `[${user.blog}](${user.blogUrl})`;
     }
-    tableContent += `| ${user.nickname} | [${user.username}](${user.githubUrl}) |${blogPart}|\n`;
+    tableContent += `| ${user.nickname} | [${user.username}](${user.githubUrl}) | ${blogPart} |\n`;
   }
 
   return tableContent;
@@ -180,82 +268,120 @@ function updateReadmeFile(
 }
 
 // 添加单个用户
-function addSingleUser(users) {
-  rl.question("请输入 GitHub 用户名: ", (username) => {
-    rl.question("请输入昵称 (直接回车使用用户名作为昵称): ", (nickname) => {
-      if (!nickname.trim()) {
-        nickname = username;
-      }
-
-      rl.question("请输入博客名称 (可选): ", (blog) => {
-        if (blog.trim()) {
-          rl.question("请输入博客链接 (可选): ", (blogUrl) => {
-            addUser(users, nickname, username, blog, blogUrl);
-            askContinue(users);
-          });
-        } else {
-          addUser(users, nickname, username);
-          askContinue(users);
-        }
-      });
+async function addSingleUser(users) {
+  try {
+    const username = await new Promise((resolve) => {
+      rl.question("请输入 GitHub 用户名: ", (answer) => resolve(answer.trim()));
     });
-  });
+
+    if (!username) {
+      console.log("用户名不能为空!");
+      return askContinue(users);
+    }
+
+    // 获取GitHub信息前，先询问是否要自定义昵称
+    const customNickname = await new Promise((resolve) => {
+      rl.question("请输入自定义昵称 (直接回车使用GitHub昵称): ", (answer) =>
+        resolve(answer.trim()),
+      );
+    });
+
+    const blog = await new Promise((resolve) => {
+      rl.question("请输入博客名称 (可选): ", (answer) =>
+        resolve(answer.trim()),
+      );
+    });
+
+    let blogUrl = "";
+    if (blog) {
+      blogUrl = await new Promise((resolve) => {
+        rl.question("请输入博客链接 (可选): ", (answer) =>
+          resolve(answer.trim()),
+        );
+      });
+    }
+
+    await addUser(users, username, customNickname, blog, blogUrl);
+    await askContinue(users);
+  } catch (error) {
+    console.error(`添加用户出错: ${error.message}`);
+    await askContinue(users);
+  }
 }
 
 // 询问是否继续添加用户
-function askContinue(users) {
-  rl.question("是否继续添加用户? (y/n): ", (answer) => {
-    if (answer.toLowerCase() === "y") {
-      addSingleUser(users);
-    } else {
-      const content = readReadmeFile();
-      const { tableStartLine, tableEndLine } = parseTableData(content);
-      const sortedUsers = sortUsersByNickname(users);
-      const newTableContent = generateNewTableContent(sortedUsers);
-      updateReadmeFile(content, tableStartLine, tableEndLine, newTableContent);
-      rl.close();
-    }
+async function askContinue(users) {
+  const answer = await new Promise((resolve) => {
+    rl.question("是否继续添加用户? (y/n): ", (ans) =>
+      resolve(ans.toLowerCase()),
+    );
   });
+
+  if (answer === "y") {
+    await addSingleUser(users);
+  } else {
+    const content = readReadmeFile();
+    const { tableStartLine, tableEndLine } = parseTableData(content);
+    // 不再排序，保持原有顺序加上新添加的用户
+    const newTableContent = generateNewTableContent(users);
+    updateReadmeFile(content, tableStartLine, tableEndLine, newTableContent);
+    rl.close();
+  }
 }
 
 // 批量添加用户
-function batchAddUsers(users) {
-  rl.question("请输入GitHub用户名列表(用逗号分隔): ", (input) => {
-    const usernames = input.split(",").map((u) => u.trim());
-
-    for (const username of usernames) {
-      if (username) {
-        addUser(users, username, username);
-      }
-    }
-
-    const content = readReadmeFile();
-    const { tableStartLine, tableEndLine } = parseTableData(content);
-    const sortedUsers = sortUsersByNickname(users);
-    const newTableContent = generateNewTableContent(sortedUsers);
-    updateReadmeFile(content, tableStartLine, tableEndLine, newTableContent);
-
-    console.log("批量添加完成");
-    rl.close();
+async function batchAddUsers(users) {
+  const input = await new Promise((resolve) => {
+    rl.question("请输入GitHub用户名列表(用逗号分隔): ", (ans) => resolve(ans));
   });
+
+  const usernames = input.split(",").map((u) => u.trim());
+  const addPromises = [];
+
+  for (const username of usernames) {
+    if (username) {
+      addPromises.push(addUser(users, username));
+    }
+  }
+
+  await Promise.all(addPromises);
+
+  const content = readReadmeFile();
+  const { tableStartLine, tableEndLine } = parseTableData(content);
+  // 不再排序，保持原有顺序
+  const newTableContent = generateNewTableContent(users);
+  updateReadmeFile(content, tableStartLine, tableEndLine, newTableContent);
+
+  console.log("批量添加完成");
+  rl.close();
 }
 
 // 主函数
-function main() {
+async function main() {
   const content = readReadmeFile();
   const { users } = parseTableData(content);
 
   console.log("=== zzuli-developers 用户添加工具 ===");
-  rl.question("选择操作: 1.添加单个用户 2.批量添加用户 ", (answer) => {
-    if (answer === "1") {
-      addSingleUser(users);
-    } else if (answer === "2") {
-      batchAddUsers(users);
-    } else {
-      console.log("无效选项，退出程序");
-      rl.close();
-    }
+  console.log("现在将自动从GitHub获取用户昵称");
+
+  const answer = await new Promise((resolve) => {
+    rl.question("选择操作: 1.添加单个用户 2.批量添加用户 ", (ans) =>
+      resolve(ans),
+    );
   });
+
+  if (answer === "1") {
+    await addSingleUser(users);
+  } else if (answer === "2") {
+    await batchAddUsers(users);
+  } else {
+    console.log("无效选项，退出程序");
+    rl.close();
+  }
 }
 
-main();
+// 启动程序
+main().catch((error) => {
+  console.error(`程序运行出错: ${error.message}`);
+  rl.close();
+});
