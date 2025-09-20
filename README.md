@@ -12,21 +12,21 @@
 
 ---
 
-| 昵称 | GitHub | 博客 |
-| ---------- | ----------------------------------------------------- | |
-| 空梦 | [EmptyDreams](https://github.com/EmptyDreams) ||
-| 绫袅LingNc | [LingNc](https://github.com/LingNc) ||
-| 十有\*\* | [billionray](https://github.com/billionray) ||
-| 探姬 | [ProbiusOfficial](https://github.com/ProbiusOfficial) ||
-| 雨奇晴好 | [xwwwb](https://github.com/xwwwb) ||
-| Caiki | [Cai-ki](https://github.com/Cai-ki) ||
-| EmptyDreams | [EmptyDreams](https://github.com/EmptyDreams) ||
-| Frex | [FrexCheat](https://github.com/FrexCheat) ||
-| RaXianch | [DeSireFire](https://github.com/DeSireFire) ||
-| ShiYi | [ShiYioo](https://github.com/ShiYioo) ||
-| SkySummer | [SkySummer](https://github.com/SkySummer) ||
-| Sleepwf | [Games55k](https://github.com/Games55k) ||
-| vow | [vow0328](https://github.com/vow0328) ||
+| 昵称        | GitHub                                                | 博客 |
+| ----------- | ----------------------------------------------------- | ---- |
+| 空梦        | [EmptyDreams](https://github.com/EmptyDreams)         |      |
+| 绫袅LingNc  | [LingNc](https://github.com/LingNc)                   |      |
+| 十有\*\*    | [billionray](https://github.com/billionray)           |      |
+| 探姬        | [ProbiusOfficial](https://github.com/ProbiusOfficial) |      |
+| 雨奇晴好    | [xwwwb](https://github.com/xwwwb)                     |      |
+| Caiki       | [Cai-ki](https://github.com/Cai-ki)                   |      |
+| EmptyDreams | [EmptyDreams](https://github.com/EmptyDreams)         |      |
+| Frex        | [FrexCheat](https://github.com/FrexCheat)             |      |
+| RaXianch    | [DeSireFire](https://github.com/DeSireFire)           |      |
+| ShiYi       | [ShiYioo](https://github.com/ShiYioo)                 |      |
+| SkySummer   | [SkySummer](https://github.com/SkySummer)             |      |
+| Sleepwf     | [Games55k](https://github.com/Games55k)               |      |
+| vow         | [vow0328](https://github.com/vow0328)                 |      |
 
 ---
 

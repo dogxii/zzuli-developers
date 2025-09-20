@@ -222,7 +222,7 @@ function confirm(question) {
 // 生成新的表格内容
 function generateNewTableContent(users) {
   let tableContent =
-    "| 昵称 | GitHub | 博客 |\n| ---------- | ----------------------------------------------------- | |\n";
+    "| 昵称 | GitHub | 博客 |\n| ---------- | ----------------------------------------------------- | ---- |\n";
 
   for (const user of users) {
     let blogPart = user.blog;
