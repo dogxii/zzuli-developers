@@ -1,4 +1,4 @@
-# zzuli-developers
+## zzuli-developers
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./banner/banner-dark.webp">
@@ -31,6 +31,7 @@
 | Sleepwf       | [Games55k](https://github.com/Games55k)               |                                           |
 | vow           | [vow0328](https://github.com/vow0328)                 |                                           |
 | Dang Wenliang | [fookwood](https://github.com/fookwood)               | [闷瓜蛋子](https://fookwood.com/)         |
+| GlassSky01    | [GlassSky01](https://github.com/GlassSky01)           |                                           |
 
 ---
 
