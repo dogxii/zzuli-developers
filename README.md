@@ -16,29 +16,41 @@
 
 ---
 
-| 昵称          | GitHub                                                | 博客/主页                                 |
-| ------------- | ----------------------------------------------------- | ----------------------------------------- |
-| 十有\*\*      | [billionray](https://github.com/billionray)           |                                           |
-| 空梦          | [EmptyDreams](https://github.com/EmptyDreams)         | [山岳库博](https://kmar.top/)             |
-| 绫袅LingNc    | [LingNc](https://github.com/LingNc)                   |                                           |
-| 雨奇晴好      | [xwwwb](https://github.com/xwwwb)                     |                                           |
-| ShiYi         | [ShiYioo](https://github.com/ShiYioo)                 | [Shi Yi の 小库](https://blog.shiyio.uk/) |
-| SkySummer     | [SkySummer](https://github.com/SkySummer)             |                                           |
-| 探姬          | [ProbiusOfficial](https://github.com/ProbiusOfficial) | [Hello CTF](https://hello-ctf.com/)       |
-| Caiki         | [Cai-ki](https://github.com/Cai-ki)                   |                                           |
-| Frex          | [FrexCheat](https://github.com/FrexCheat)             |                                           |
-| RaXianch      | [DeSireFire](https://github.com/DeSireFire)           |                                           |
-| Sleepwf       | [Games55k](https://github.com/Games55k)               |                                           |
-| vow           | [vow0328](https://github.com/vow0328)                 |                                           |
-| Dang Wenliang | [fookwood](https://github.com/fookwood)               | [闷瓜蛋子](https://fookwood.com/)         |
-| GlassSky01    | [GlassSky01](https://github.com/GlassSky01)           |                                           |
-| Dogxi         | [dogxii](https://github.com/dogxii)                   | [狗窝子](https://blog.dogxi.me/)          |
+| 昵称          | GitHub                                                | 博客/主页                                      |
+| ------------- | ----------------------------------------------------- | ---------------------------------------------- |
+| 十有\*\*      | [billionray](https://github.com/billionray)           |                                                |
+| 空梦          | [EmptyDreams](https://github.com/EmptyDreams)         | [山岳库博](https://kmar.top/)                  |
+| 绫袅LingNc    | [LingNc](https://github.com/LingNc)                   |                                                |
+| 雨奇晴好      | [xwwwb](https://github.com/xwwwb)                     |                                                |
+| ShiYi         | [ShiYioo](https://github.com/ShiYioo)                 | [Shi Yi の 小库](https://blog.shiyio.uk/)      |
+| SkySummer     | [SkySummer](https://github.com/SkySummer)             |                                                |
+| 探姬          | [ProbiusOfficial](https://github.com/ProbiusOfficial) | [Hello CTF](https://hello-ctf.com/)            |
+| Caiki         | [Cai-ki](https://github.com/Cai-ki)                   |                                                |
+| Frex          | [FrexCheat](https://github.com/FrexCheat)             |                                                |
+| RaXianch      | [DeSireFire](https://github.com/DeSireFire)           |                                                |
+| Sleepwf       | [Games55k](https://github.com/Games55k)               |                                                |
+| vow           | [vow0328](https://github.com/vow0328)                 |                                                |
+| Dang Wenliang | [fookwood](https://github.com/fookwood)               | [闷瓜蛋子](https://fookwood.com/)              |
+| GlassSky01    | [GlassSky01](https://github.com/GlassSky01)           |                                                |
+| Dogxi         | [dogxii](https://github.com/dogxii)                   | [狗窝子](https://blog.dogxi.me/)               |
+| 冬酒暖阳      | [HanZephyr](https://github.com/HanZephyr)             |                                                |
+| Zhang Yi-Ze   | [Chivas-Regal](https://github.com/Chivas-Regal)       | [Tech Blog](https://tech.chivas-regal.top/)    |
+| suspen        | [suspenss](https://github.com/suspenss)               |                                                |
+| polter        | [555TT](https://github.com/555TT)                     |                                                |
+| Su Yiheng     | [827652549](https://github.com/827652549)             | [苏一恒](https://827652549.github.io/)         |
+| Juntao Han    | [mstao](https://github.com/mstao)                     | [明月逐人归](https://www.cnblogs.com/mingshan) |
+| LFAboy        | [LFAboy](https://github.com/LFAboy)                   |                                                |
+| Meteor_Z      | [Meteor-Z](https://github.com/Meteor-Z)               | [Meteor-Z](https://liuzechen.top/)             |
+| 123508        | [123508](https://github.com/123508)                   |                                                |
+| hoey          | [hoey94](https://github.com/hoey94)                   | [Hoey](https://www.yihao.de/)                  |
+| Benign X      | [W-Mai](https://github.com/W-Mai)                     | [B3n1gn X](https://benign.host/)               |
+| z1zhang       | [z1zhang](https://github.com/z1zhang)                 |                                                |
 
 ---
 
-目前先用文字表格，后面再用图文卡片形式。
+目前先用文字表格，后面再用图文卡片形式。（再加上针对活跃度的脚本排序）
 
-收集中 ... （半夜了 我先睡个觉zzz）
+收集中 ...
 
 ## 快速添加
 
