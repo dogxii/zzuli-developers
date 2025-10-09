@@ -24,7 +24,7 @@
 
 - [ProbiusOfficial/Hello-CTF](https://github.com/ProbiusOfficial/Hello-CTF): 免费开源的CTF入门教程，致力于CTF和网络安全的开源生态！
 
-- [FrexCheat/DevBeginner-Doc](https://github.com/FrexCheat/DevBeginner-Doc): 一个面向编程初学者的帮助文档
+- [FrexCheat/DevBeginner-Doc](https://github.com/FrexCheat/DevBeginner-Doc): 一个面向编程初学者的帮助文档([https://wiki.frexlink.com](https://wiki.frexlink.com))
 
 ## 校友大合集
 
