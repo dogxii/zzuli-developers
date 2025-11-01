@@ -70,7 +70,7 @@
 | huiyinian        | [huiyinian](https://github.com/huiyinian)               | [csdn](https://blog.csdn.net/qq_44379458)      |
 | Charles          | [Charles-IX](https://github.com/Charles-IX)             |                                                |
 | naseele-vollerei | [naseele-vollerei](https://github.com/naseele-vollerei) |                                                |
-| 音波             | [yin-bo-Final](https://github.com/yin-bo-Final)         |                                                |
+| 音波             | [yin-bo-Final](https://github.com/yin-bo-Final)         | [yin_bo_'s BLOG](https://blog.yinbo.xyz)       |
 | 张昊哲           | [hua-AKA](https://github.com/hua-AKA)                   |                                                |
 | Li ZhiBo         | [leabol](https://github.com/leabol)                     |                                                |
 | Liu donghao      | [dongsayu](https://github.com/dongsayu)                 |                                                |
