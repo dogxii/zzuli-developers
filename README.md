@@ -2,7 +2,7 @@
 
 收集所有 zzuli 开发者校友信息，看看大家都在干什么 :D
 
-![banner](./banner/banner.png)
+![banner](./banner/banner.webp)
 
 ## 快速开始
 
