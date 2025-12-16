@@ -114,7 +114,7 @@
   class="relative z-10 min-h-screen text-slate-300 font-sans selection:bg-cyan-500/30"
 >
   <!-- Hero Section -->
-  <section class="relative pt-20 pb-2 sm:pb-18 overflow-hidden">
+  <section class="relative pt-20 pb-2 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div
         in:fly={{ y: 20, duration: 800, delay: 200 }}
