@@ -1,0 +1,33 @@
+# Cache GitHub avatars for 1 week
+https://github.com/*.png
+  Cache-Control: public, max-age=604800, s-maxage=604800
+
+# Cache images for 1 year
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache fonts for 1 year
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache CSS and JS with long expiry
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Default security headers for all pages
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  X-XSS-Protection: 1; mode=block
+
+# Cache HTML pages for 1 hour
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
