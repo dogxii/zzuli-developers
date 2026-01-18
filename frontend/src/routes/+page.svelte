@@ -229,9 +229,11 @@
                     <div class="flex items-start justify-between">
                       <div class="flex-1 min-w-0">
                         <p class="text-sm text-slate-300">
-                          <span
+                          <a
+                            href={`https://github.com/${activity.user}`}
                             class="font-semibold text-white hover:underline cursor-pointer"
-                            >{activity.user}</span
+                            target="_blank"
+                            rel="noopener noreferrer">{activity.user}</a
                           >
                           <span class="text-slate-500"
                             >{formatEventType(activity.type)}</span
