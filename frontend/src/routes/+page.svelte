@@ -19,6 +19,7 @@
     }>
   >([])
   let loadingActivities = $state(true)
+  let rateLimitError = $state(false)
 
   // Computed Stats
   let totalAlumni = $derived(data.alumni.length)
@@ -48,6 +49,11 @@
     const requests = shuffled.map((username) =>
       fetch(`https://api.github.com/users/${username}/events/public?per_page=3`)
         .then((res) => {
+          // 检查是否触发限流
+          if (res.status === 403 || res.status === 429) {
+            rateLimitError = true
+            return []
+          }
           if (!res.ok) return []
           return res.json()
         })
@@ -62,7 +68,10 @@
             url: `https://github.com/${e.repo.name}`,
           }))
         })
-        .catch(() => []),
+        .catch((err) => {
+          console.error(`Failed to fetch events for ${username}:`, err)
+          return []
+        }),
     )
 
     const results = await Promise.all(requests)
@@ -239,6 +248,10 @@
                 ><!-- ... --></svg
               >
               Syncing with GitHub...
+            </div>
+          {:else if rateLimitError}
+            <div class="p-6 text-center text-slate-500">
+              GitHub API rate limit exceeded. Please try again in an hour.
             </div>
           {:else if activities.length === 0}
             <div class="p-6 text-center text-slate-500">
