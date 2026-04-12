@@ -45,7 +45,7 @@ https://zzuli.dogxi.me
 | ShiYi            | [ShiYioo](https://github.com/ShiYioo)                   | [Shi Yi の 小库](https://blog.shiyio.uk/)        |
 | SkySummer        | [SkySummer](https://github.com/SkySummer)               |                                                  |
 | 探姬             | [ProbiusOfficial](https://github.com/ProbiusOfficial)   | [Hello CTF](https://hello-ctf.com/)              |
-| Caiki            | [Cai-ki](https://github.com/Cai-ki)                     |                                                  |
+| Caiki            | [caikiji](https://github.com/caikiji)                     |                                                  |
 | Frex             | [FrexCheat](https://github.com/FrexCheat)               |                                                  |
 | Charles          | [Charles-IX](https://github.com/Charles-IX)             | [Planck 数据集群](https://blog.charles-link.cn/) |
 | RaXianch         | [DeSireFire](https://github.com/DeSireFire)             |                                                  |
@@ -76,7 +76,7 @@ https://zzuli.dogxi.me
 | Liu donghao      | [dongsayu](https://github.com/dongsayu)                 |                                                  |
 | MengHao Dai      | [DMengHao](https://github.com/DMengHao)                 |                                                  |
 | Wang Wenchao     | [dooth333](https://github.com/dooth333)                 |                                                  |
-| Shen Zikun       | [shenzikun](https://github.com/shenzikun)               |                                                  |
+| Zane Shen       | [zaneshenhq](https://github.com/zaneshenhq)               |                                                  |
 | Echok            | [beinuela](https://github.com/beinuela)                 |                                                  |
 | Huang Enrong     | [kehuanenrong](https://github.com/kehuanenrong)         |                                                  |
 | chenhao          | [halfup](https://github.com/halfup)                     |                                                  |
