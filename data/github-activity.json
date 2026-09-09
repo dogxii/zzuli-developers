@@ -1,5 +1,5 @@
 {
-	"generatedAt": "2026-09-08T21:56:00.836Z",
+	"generatedAt": "2026-09-09T07:53:19.763Z",
 	"range": {
 		"from": "2025-09-03",
 		"to": "2026-09-08",
@@ -2602,9 +2602,9 @@
 			"name": "探姬",
 			"url": "https://github.com/ProbiusOfficial",
 			"avatar": "https://avatars.githubusercontent.com/u/41804496?u=5b7779f83f12fed3959226be267625cf0952f1aa&v=4",
-			"latestDayContributions": 5,
-			"recentContributions": 66,
-			"totalContributions": 7579,
+			"latestDayContributions": 6,
+			"recentContributions": 67,
+			"totalContributions": 7580,
 			"calendar": {
 				"start": "2025-09-07",
 				"counts": [
@@ -2974,15 +2974,23 @@
 					8,
 					16,
 					6,
-					5
+					6
 				]
 			},
 			"recentRepositories": [
 				{
+					"name": "SecToolKit",
+					"nameWithOwner": "ProbiusOfficial/SecToolKit",
+					"url": "https://github.com/ProbiusOfficial/SecToolKit",
+					"pushedAt": "2026-09-09T03:12:35Z",
+					"stars": 976,
+					"language": null
+				},
+				{
 					"name": "Hello-CTFtime",
 					"nameWithOwner": "ProbiusOfficial/Hello-CTFtime",
 					"url": "https://github.com/ProbiusOfficial/Hello-CTFtime",
-					"pushedAt": "2026-09-08T20:40:44Z",
+					"pushedAt": "2026-09-09T02:57:43Z",
 					"stars": 176,
 					"language": {
 						"name": "Python",
@@ -2990,19 +2998,11 @@
 					}
 				},
 				{
-					"name": "SecToolKit",
-					"nameWithOwner": "ProbiusOfficial/SecToolKit",
-					"url": "https://github.com/ProbiusOfficial/SecToolKit",
-					"pushedAt": "2026-09-08T03:10:26Z",
-					"stars": 975,
-					"language": null
-				},
-				{
 					"name": "Hello-CTF",
 					"nameWithOwner": "ProbiusOfficial/Hello-CTF",
 					"url": "https://github.com/ProbiusOfficial/Hello-CTF",
-					"pushedAt": "2026-09-08T02:48:52Z",
-					"stars": 4193,
+					"pushedAt": "2026-09-09T02:48:43Z",
+					"stars": 4194,
 					"language": {
 						"name": "HTML",
 						"color": "#e34c26"
@@ -3013,7 +3013,7 @@
 					"nameWithOwner": "ProbiusOfficial/linux-ir-skill",
 					"url": "https://github.com/ProbiusOfficial/linux-ir-skill",
 					"pushedAt": "2026-09-06T05:12:16Z",
-					"stars": 26,
+					"stars": 27,
 					"language": {
 						"name": "Shell",
 						"color": "#89e051"
@@ -5090,7 +5090,7 @@
 					"name": "Games55k",
 					"nameWithOwner": "Games55k/Games55k",
 					"url": "https://github.com/Games55k/Games55k",
-					"pushedAt": "2026-09-08T16:14:49Z",
+					"pushedAt": "2026-09-09T03:43:57Z",
 					"stars": 1,
 					"language": null
 				},
@@ -6761,10 +6761,21 @@
 			},
 			"recentRepositories": [
 				{
+					"name": "QFace",
+					"nameWithOwner": "dogxii/QFace",
+					"url": "https://github.com/dogxii/QFace",
+					"pushedAt": "2026-09-09T07:10:42Z",
+					"stars": 3,
+					"language": {
+						"name": "TypeScript",
+						"color": "#3178c6"
+					}
+				},
+				{
 					"name": "dogxii",
 					"nameWithOwner": "dogxii/dogxii",
 					"url": "https://github.com/dogxii/dogxii",
-					"pushedAt": "2026-09-08T16:00:41Z",
+					"pushedAt": "2026-09-09T03:11:38Z",
 					"stars": 2,
 					"language": null
 				},
@@ -6784,7 +6795,7 @@
 					"nameWithOwner": "dogxii/iFace",
 					"url": "https://github.com/dogxii/iFace",
 					"pushedAt": "2026-09-07T07:14:59Z",
-					"stars": 140,
+					"stars": 141,
 					"language": {
 						"name": "TypeScript",
 						"color": "#3178c6"
@@ -6796,17 +6807,6 @@
 					"url": "https://github.com/dogxii/qingbot",
 					"pushedAt": "2026-08-27T07:16:10Z",
 					"stars": 0,
-					"language": {
-						"name": "TypeScript",
-						"color": "#3178c6"
-					}
-				},
-				{
-					"name": "webark-im-template",
-					"nameWithOwner": "dogxii/webark-im-template",
-					"url": "https://github.com/dogxii/webark-im-template",
-					"pushedAt": "2026-08-11T04:51:29Z",
-					"stars": 44,
 					"language": {
 						"name": "TypeScript",
 						"color": "#3178c6"
@@ -10621,7 +10621,7 @@
 					"name": "123508",
 					"nameWithOwner": "123508/123508",
 					"url": "https://github.com/123508/123508",
-					"pushedAt": "2026-09-08T04:18:14Z",
+					"pushedAt": "2026-09-09T04:23:56Z",
 					"stars": 0,
 					"language": null
 				},
@@ -11463,6 +11463,17 @@
 			},
 			"recentRepositories": [
 				{
+					"name": "textflow",
+					"nameWithOwner": "W-Mai/textflow",
+					"url": "https://github.com/W-Mai/textflow",
+					"pushedAt": "2026-09-09T04:12:20Z",
+					"stars": 0,
+					"language": {
+						"name": "Rust",
+						"color": "#dea584"
+					}
+				},
+				{
 					"name": "atman",
 					"nameWithOwner": "W-Mai/atman",
 					"url": "https://github.com/W-Mai/atman",
@@ -11502,17 +11513,6 @@
 					"pushedAt": "2026-09-05T08:25:42Z",
 					"stars": 3,
 					"language": null
-				},
-				{
-					"name": "xskills",
-					"nameWithOwner": "W-Mai/xskills",
-					"url": "https://github.com/W-Mai/xskills",
-					"pushedAt": "2026-09-03T06:19:40Z",
-					"stars": 1,
-					"language": {
-						"name": "Python",
-						"color": "#3572A5"
-					}
 				}
 			]
 		},
@@ -12339,7 +12339,7 @@
 					"name": "songtianlun.github.io",
 					"nameWithOwner": "songtianlun/songtianlun.github.io",
 					"url": "https://github.com/songtianlun/songtianlun.github.io",
-					"pushedAt": "2026-09-08T18:07:48Z",
+					"pushedAt": "2026-09-09T02:50:48Z",
 					"stars": 5,
 					"language": null
 				},
@@ -14040,7 +14040,7 @@
 					"name": "yin-bo-Final",
 					"nameWithOwner": "yin-bo-Final/yin-bo-Final",
 					"url": "https://github.com/yin-bo-Final/yin-bo-Final",
-					"pushedAt": "2026-09-08T02:51:22Z",
+					"pushedAt": "2026-09-09T02:51:18Z",
 					"stars": 2,
 					"language": null
 				},
@@ -16140,7 +16140,7 @@
 					"name": "eduboard_web",
 					"nameWithOwner": "dooth333/eduboard_web",
 					"url": "https://github.com/dooth333/eduboard_web",
-					"pushedAt": "2026-09-08T13:53:11Z",
+					"pushedAt": "2026-09-09T06:50:29Z",
 					"stars": 0,
 					"language": {
 						"name": "Vue",
@@ -20346,6 +20346,17 @@
 			},
 			"recentRepositories": [
 				{
+					"name": "mengshenxiaotian",
+					"nameWithOwner": "MsXiaoTian-Gamer/mengshenxiaotian",
+					"url": "https://github.com/MsXiaoTian-Gamer/mengshenxiaotian",
+					"pushedAt": "2026-09-09T06:07:11Z",
+					"stars": 1,
+					"language": {
+						"name": "CSS",
+						"color": "#663399"
+					}
+				},
+				{
 					"name": "TaFang",
 					"nameWithOwner": "MsXiaoTian-Gamer/TaFang",
 					"url": "https://github.com/MsXiaoTian-Gamer/TaFang",
@@ -20354,17 +20365,6 @@
 					"language": {
 						"name": "Wolfram Language",
 						"color": "#dd1100"
-					}
-				},
-				{
-					"name": "mengshenxiaotian",
-					"nameWithOwner": "MsXiaoTian-Gamer/mengshenxiaotian",
-					"url": "https://github.com/MsXiaoTian-Gamer/mengshenxiaotian",
-					"pushedAt": "2026-09-08T08:53:39Z",
-					"stars": 1,
-					"language": {
-						"name": "HTML",
-						"color": "#e34c26"
 					}
 				},
 				{
@@ -21621,7 +21621,7 @@
 					"name": "MoQix26",
 					"nameWithOwner": "moqix26/MoQix26",
 					"url": "https://github.com/moqix26/MoQix26",
-					"pushedAt": "2026-09-08T03:32:15Z",
+					"pushedAt": "2026-09-09T03:36:33Z",
 					"stars": 0,
 					"language": null
 				},
@@ -22491,7 +22491,7 @@
 					"name": "Waiting",
 					"nameWithOwner": "ljcjclljc/Waiting",
 					"url": "https://github.com/ljcjclljc/Waiting",
-					"pushedAt": "2026-09-08T15:43:02Z",
+					"pushedAt": "2026-09-09T07:27:06Z",
 					"stars": 3,
 					"language": {
 						"name": "C++",
