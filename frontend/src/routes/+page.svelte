@@ -158,19 +158,15 @@ let siteStatsItems = $derived.by(() =>
 	[
 		{
 			icon: 'views' as const,
-			label: '总访问',
-			value: data.siteStats.totalPageViews,
-			title: data.siteStats.totalPageViewsStartedAt
-				? `自 ${data.siteStats.totalPageViewsStartedAt} 起累计 PV`
-				: '累计页面浏览量',
+			label: '页面浏览',
+			value: data.siteStats.pageViews,
+			title: `近 ${data.siteStats.range.days} 天 Cloudflare Web Analytics 页面浏览${data.siteStats.excludeBots ? '（已排除机器人）' : ''}`,
 		},
 		{
 			icon: 'visitors' as const,
-			label: '月访客',
-			value: data.siteStats.uniqueVisitors,
-			title: data.siteStats.uniqueVisitorsApproximate
-				? `近 ${data.siteStats.range.days} 天按天独立访客汇总`
-				: '独立访客数',
+			label: '访问',
+			value: data.siteStats.visits,
+			title: `近 ${data.siteStats.range.days} 天 Cloudflare Web Analytics 访问次数（非独立访客${data.siteStats.excludeBots ? '，已排除机器人' : ''}）`,
 		},
 	].filter(
 		(

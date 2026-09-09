@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"generatedAt": "2026-09-08T22:01:01.155Z",
 	"range": {
 		"from": "2026-08-10",
@@ -33,4 +34,19 @@
 	},
 	"source": "cloudflare-graphql:httpRequests1dGroups",
 	"available": true
+=======
+	"schemaVersion": 2,
+	"generatedAt": null,
+	"range": {
+		"from": null,
+		"to": null,
+		"days": 30
+	},
+	"hostname": "zzuli.dev",
+	"visits": null,
+	"pageViews": null,
+	"excludeBots": false,
+	"source": null,
+	"available": false
+>>>>>>> aca97db (refactor(site-stats): switch to Cloudflare Web Analytics data source)
 }

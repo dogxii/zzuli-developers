@@ -24,7 +24,8 @@ jobs:
       - name: Collect site stats
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ZONE_TAG: ${{ secrets.CLOUDFLARE_ZONE_TAG }}
+          CLOUDFLARE_ACCOUNT_TAG: a221b5640afb24a6dd84c58046f78a7f
+          CLOUDFLARE_WEB_ANALYTICS_SITE_TAG: 3ac515b939324f8aa1fdff2e72303919
           SITE_STATS_HOSTNAME: zzuli.dev
         run: npm --prefix frontend run collect:site-stats
 

@@ -388,6 +388,9 @@ function validateSiteStats() {
 	}
 
 	const data = readJson('data/site-stats.json')
+	if (data.schemaVersion !== 2) {
+		addError('data/site-stats.json.schemaVersion', '必须是 2')
+	}
 	validateNullableDateTime(data.generatedAt, 'data/site-stats.json.generatedAt')
 	validateNullableDate(data.range?.from, 'data/site-stats.json.range.from')
 	validateNullableDate(data.range?.to, 'data/site-stats.json.range.to')
@@ -401,49 +404,10 @@ function validateSiteStats() {
 	) {
 		addError('data/site-stats.json.hostname', '必须是非空字符串或 null')
 	}
-	validateNullableCount(data.requests, 'data/site-stats.json.requests')
-	validateNullableCount(data.pageViews, 'data/site-stats.json.pageViews')
 	validateNullableCount(data.visits, 'data/site-stats.json.visits')
-	validateNullableCount(
-		data.uniqueVisitors,
-		'data/site-stats.json.uniqueVisitors',
-	)
-	validateNullableCount(
-		data.totalPageViews,
-		'data/site-stats.json.totalPageViews',
-	)
-	validateNullableDate(
-		data.totalPageViewsStartedAt,
-		'data/site-stats.json.totalPageViewsStartedAt',
-	)
-	validateNullableDate(
-		data.totalPageViewsUpdatedThrough,
-		'data/site-stats.json.totalPageViewsUpdatedThrough',
-	)
-	if (data.dailyPageViews !== undefined) {
-		if (
-			!data.dailyPageViews ||
-			typeof data.dailyPageViews !== 'object' ||
-			Array.isArray(data.dailyPageViews)
-		) {
-			addError('data/site-stats.json.dailyPageViews', '必须是对象')
-		} else {
-			Object.entries(data.dailyPageViews).forEach(([date, count]) => {
-				if (!isDate(date)) {
-					addError(
-						'data/site-stats.json.dailyPageViews',
-						`日期键必须是 YYYY-MM-DD: ${date}`,
-					)
-				}
-				validateNullableCount(
-					count,
-					`data/site-stats.json.dailyPageViews.${date}`,
-				)
-			})
-		}
-	}
-	if (typeof data.uniqueVisitorsApproximate !== 'boolean') {
-		addError('data/site-stats.json.uniqueVisitorsApproximate', '必须是 boolean')
+	validateNullableCount(data.pageViews, 'data/site-stats.json.pageViews')
+	if (typeof data.excludeBots !== 'boolean') {
+		addError('data/site-stats.json.excludeBots', '必须是 boolean')
 	}
 	if (
 		data.source !== null &&

@@ -105,6 +105,7 @@ export type GitHubActivityData = {
 }
 
 export type SiteStats = {
+	schemaVersion: number
 	generatedAt: string | null
 	range: {
 		from: string | null
@@ -112,15 +113,9 @@ export type SiteStats = {
 		days: number
 	}
 	hostname: string | null
-	requests: number | null
-	pageViews: number | null
 	visits: number | null
-	uniqueVisitors: number | null
-	uniqueVisitorsApproximate: boolean
-	totalPageViews: number | null
-	totalPageViewsStartedAt: string | null
-	totalPageViewsUpdatedThrough: string | null
-	dailyPageViews: Record<string, number>
+	pageViews: number | null
+	excludeBots: boolean
 	source: string | null
 	available: boolean
 }
@@ -581,6 +576,7 @@ function readGitHubActivity(): GitHubActivityData {
 
 function emptySiteStats(): SiteStats {
 	return {
+		schemaVersion: 2,
 		generatedAt: null,
 		range: {
 			from: null,
@@ -588,15 +584,9 @@ function emptySiteStats(): SiteStats {
 			days: DEFAULT_SITE_STATS_DAYS,
 		},
 		hostname: 'zzuli.dev',
-		requests: null,
-		pageViews: null,
 		visits: null,
-		uniqueVisitors: null,
-		uniqueVisitorsApproximate: false,
-		totalPageViews: null,
-		totalPageViewsStartedAt: null,
-		totalPageViewsUpdatedThrough: null,
-		dailyPageViews: {},
+		pageViews: null,
+		excludeBots: false,
 		source: null,
 		available: false,
 	}
@@ -612,7 +602,12 @@ function readSiteStats(): SiteStats {
 		const parsed = JSON.parse(
 			fs.readFileSync(statsPath, 'utf-8'),
 		) as SiteStatsFile
+		if (parsed.schemaVersion !== 2) {
+			return emptySiteStats()
+		}
+
 		return {
+			schemaVersion: 2,
 			generatedAt: parsed.generatedAt ?? null,
 			range: {
 				from: parsed.range?.from ?? null,
@@ -623,21 +618,9 @@ function readSiteStats(): SiteStats {
 						: DEFAULT_SITE_STATS_DAYS,
 			},
 			hostname: parsed.hostname ?? 'zzuli.dev',
-			requests: parsed.requests ?? null,
-			pageViews: parsed.pageViews ?? null,
 			visits: parsed.visits ?? null,
-			uniqueVisitors: parsed.uniqueVisitors ?? null,
-			uniqueVisitorsApproximate: parsed.uniqueVisitorsApproximate ?? false,
-			totalPageViews: parsed.totalPageViews ?? parsed.pageViews ?? null,
-			totalPageViewsStartedAt: parsed.totalPageViewsStartedAt ?? null,
-			totalPageViewsUpdatedThrough:
-				parsed.totalPageViewsUpdatedThrough ?? parsed.range?.to ?? null,
-			dailyPageViews:
-				parsed.dailyPageViews &&
-				typeof parsed.dailyPageViews === 'object' &&
-				!Array.isArray(parsed.dailyPageViews)
-					? parsed.dailyPageViews
-					: {},
+			pageViews: parsed.pageViews ?? null,
+			excludeBots: parsed.excludeBots ?? false,
 			source: parsed.source ?? null,
 			available: parsed.available ?? false,
 		}

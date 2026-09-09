@@ -7,13 +7,15 @@ const ROOT_DIR = path.resolve(
 	path.dirname(fileURLToPath(import.meta.url)),
 	'..',
 )
-const OUTPUT_PATH = path.join(ROOT_DIR, 'data', 'site-stats.json')
+const OUTPUT_PATH = process.env.SITE_STATS_OUTPUT_PATH
+	? path.resolve(process.env.SITE_STATS_OUTPUT_PATH)
+	: path.join(ROOT_DIR, 'data', 'site-stats.json')
 const ENDPOINT =
 	process.env.CLOUDFLARE_GRAPHQL_ENDPOINT ??
 	'https://api.cloudflare.com/client/v4/graphql'
 const TOKEN = process.env.CLOUDFLARE_API_TOKEN ?? ''
-const ZONE_TAG =
-	process.env.CLOUDFLARE_ZONE_TAG ?? process.env.CLOUDFLARE_ZONE_ID ?? ''
+const ACCOUNT_TAG = (process.env.CLOUDFLARE_ACCOUNT_TAG ?? '').trim()
+const SITE_TAG = (process.env.CLOUDFLARE_WEB_ANALYTICS_SITE_TAG ?? '').trim()
 const HOSTNAME = (process.env.SITE_STATS_HOSTNAME ?? 'zzuli.dev').trim()
 const DAYS = positiveInteger(process.env.SITE_STATS_DAYS, 30)
 
@@ -26,16 +28,6 @@ function toDateKey(date) {
 	return date.toISOString().slice(0, 10)
 }
 
-function fromDateKey(dateKey) {
-	return new Date(`${dateKey}T00:00:00.000Z`)
-}
-
-function addUtcDays(date, days) {
-	const next = new Date(date)
-	next.setUTCDate(next.getUTCDate() + days)
-	return next
-}
-
 function toFiniteNumber(value) {
 	return typeof value === 'number' && Number.isFinite(value) ? value : null
 }
@@ -44,21 +36,13 @@ function sumNumbers(values, readValue) {
 	return values.reduce((total, value) => total + (readValue(value) ?? 0), 0)
 }
 
-async function readExistingStats() {
-	try {
-		return JSON.parse(await fs.readFile(OUTPUT_PATH, 'utf-8'))
-	} catch {
-		return {}
-	}
-}
-
 async function cloudflareGraphql(query, variables) {
 	const response = await fetch(ENDPOINT, {
 		method: 'POST',
 		headers: {
 			authorization: `Bearer ${TOKEN}`,
 			'content-type': 'application/json',
-			'user-agent': 'ZZULI.dev-site-stats/0.1',
+			'user-agent': 'ZZULI.dev-site-stats/1.0',
 		},
 		body: JSON.stringify({ query, variables }),
 	})
@@ -68,255 +52,94 @@ async function cloudflareGraphql(query, variables) {
 		throw new Error(`Cloudflare GraphQL HTTP ${response.status}`)
 	}
 	if (payload?.errors?.length) {
-		throw new Error(
-			payload.errors.map((error) => error.message).join('; '),
-		)
+		throw new Error(payload.errors.map((error) => error.message).join('; '))
 	}
 
 	return payload.data
 }
 
-function buildRequestFilter({ since, until }) {
-	const filter = {
-		requestSource: 'eyeball',
-		datetime_geq: since,
-		datetime_lt: until,
-	}
-
-	if (HOSTNAME) {
-		filter.clientRequestHTTPHost = HOSTNAME
-	}
-
-	return filter
-}
-
-function buildDailyFilter({ sinceDate, untilDate }) {
-	return {
-		date_geq: sinceDate,
-		date_lt: untilDate,
-	}
-}
-
-async function fetchRequestTotals(filter) {
+async function fetchWebAnalytics({ since, until }) {
 	const data = await cloudflareGraphql(
-		`query SiteRequests($zoneTag: string!, $filter: ZoneHttpRequestsAdaptiveGroupsFilter_InputObject) {
+		`query SiteWebAnalytics($accountTag: string!, $siteTag: string!, $since: Time!, $until: Time!) {
 			viewer {
-				zones(filter: { zoneTag: $zoneTag }) {
-					httpRequestsAdaptiveGroups(limit: 10000, filter: $filter) {
+				accounts(filter: { accountTag: $accountTag }) {
+					rumPageloadEventsAdaptiveGroups(
+						limit: 100,
+						filter: {
+							datetime_geq: $since,
+							datetime_lt: $until,
+							siteTag: $siteTag,
+							bot: 0
+						}
+					) {
 						count
 						sum {
 							visits
 						}
-					}
-				}
-			}
-		}`,
-		{ zoneTag: ZONE_TAG, filter },
-	)
-	const groups = data?.viewer?.zones?.[0]?.httpRequestsAdaptiveGroups ?? []
-
-	return {
-		requests: sumNumbers(groups, (group) => toFiniteNumber(group.count)),
-		visits: sumNumbers(groups, (group) =>
-			toFiniteNumber(group.sum?.visits),
-		),
-	}
-}
-
-async function fetchRequestTotalsByDay({ since, until }) {
-	const totals = {
-		requests: 0,
-		visits: 0,
-	}
-	let cursor = since
-
-	while (cursor < until) {
-		const next = new Date(
-			Math.min(addUtcDays(cursor, 1).getTime(), until.getTime()),
-		)
-		const dailyTotals = await fetchRequestTotals(
-			buildRequestFilter({
-				since: cursor.toISOString(),
-				until: next.toISOString(),
-			}),
-		)
-
-		totals.requests += dailyTotals.requests
-		totals.visits += dailyTotals.visits
-		cursor = next
-	}
-
-	return totals
-}
-
-async function fetchDailyTotals(filter) {
-	const data = await cloudflareGraphql(
-		`query SiteDailyStats($zoneTag: string!, $filter: ZoneHttpRequests1dGroupsFilter_InputObject) {
-			viewer {
-				zones(filter: { zoneTag: $zoneTag }) {
-					httpRequests1dGroups(limit: 1000, filter: $filter) {
 						dimensions {
 							date
 						}
-						sum {
-							pageViews
-							requests
-						}
-						uniq {
-							uniques
-						}
 					}
 				}
 			}
 		}`,
-		{ zoneTag: ZONE_TAG, filter },
+		{ accountTag: ACCOUNT_TAG, siteTag: SITE_TAG, since, until },
 	)
-	const groups = data?.viewer?.zones?.[0]?.httpRequests1dGroups ?? []
-	const pageViewsByDate = Object.fromEntries(
-		groups
-			.map((group) => [
-				group.dimensions?.date,
-				toFiniteNumber(group.sum?.pageViews) ?? 0,
-			])
-			.filter(([date]) => typeof date === 'string'),
-	)
+	const accounts = data?.viewer?.accounts
+	if (!Array.isArray(accounts) || accounts.length !== 1) {
+		throw new Error(
+			'未返回 Cloudflare Account 数据，请检查 CLOUDFLARE_ACCOUNT_TAG。',
+		)
+	}
+
+	const groups = accounts[0]?.rumPageloadEventsAdaptiveGroups
+	if (!Array.isArray(groups)) {
+		throw new Error('Cloudflare Web Analytics 响应格式无效。')
+	}
 
 	return {
-		pageViewsByDate,
-		pageViews: sumNumbers(groups, (group) =>
-			toFiniteNumber(group.sum?.pageViews),
-		),
-		requests: sumNumbers(groups, (group) =>
-			toFiniteNumber(group.sum?.requests),
-		),
-		uniqueVisitors: sumNumbers(groups, (group) =>
-			toFiniteNumber(group.uniq?.uniques),
-		),
+		pageViews: sumNumbers(groups, (group) => toFiniteNumber(group.count)),
+		visits: sumNumbers(groups, (group) => toFiniteNumber(group.sum?.visits)),
 	}
 }
 
 async function collect() {
-	if (!TOKEN || !ZONE_TAG) {
-		console.log(
-			'缺少 CLOUDFLARE_API_TOKEN 或 CLOUDFLARE_ZONE_TAG，跳过站点统计采集。',
-		)
-		return
-	}
-
-	const existingStats = await readExistingStats()
-	const now = new Date()
-	const todayDate = toDateKey(now)
-	const untilDate = todayDate
-	const untilExclusiveDate = toDateKey(addUtcDays(now, 1))
-	const sinceDate = toDateKey(addUtcDays(now, 1 - DAYS))
-	const since = fromDateKey(sinceDate)
-	const untilExclusive = fromDateKey(untilExclusiveDate)
-
-	let requestTotals = null
-	if (DAYS <= 7) {
-		try {
-			requestTotals = await fetchRequestTotalsByDay({
-				since,
-				until: untilExclusive,
-			})
-		} catch (error) {
-			console.warn(`请求统计不可用: ${error.message}`)
-		}
-	}
-
-	let dailyTotals = null
-	try {
-		dailyTotals = await fetchDailyTotals(
-			buildDailyFilter({
-				sinceDate,
-				untilDate: untilExclusiveDate,
-			}),
-		)
-	} catch (error) {
-		console.warn(`日统计不可用，仅展示请求和访次: ${error.message}`)
-	}
-
-	const requests = requestTotals?.requests ?? dailyTotals?.requests ?? null
-	const pageViews = dailyTotals?.pageViews ?? null
-	const visits = requestTotals?.visits ?? null
-	const uniqueVisitors = dailyTotals?.uniqueVisitors ?? null
-	const totalPageViewsState = await updateTotalPageViews({
-		existingStats,
-		pageViewsByDate: dailyTotals?.pageViewsByDate ?? {},
-	})
-	const available =
-		requests !== null ||
-		pageViews !== null ||
-		visits !== null ||
-		uniqueVisitors !== null ||
-		totalPageViewsState.totalPageViews !== null
-	const sources = [
-		requestTotals ? 'cloudflare-graphql:httpRequestsAdaptiveGroups' : null,
-		dailyTotals ? 'cloudflare-graphql:httpRequests1dGroups' : null,
+	const missing = [
+		!TOKEN ? 'CLOUDFLARE_API_TOKEN' : null,
+		!ACCOUNT_TAG ? 'CLOUDFLARE_ACCOUNT_TAG' : null,
+		!SITE_TAG ? 'CLOUDFLARE_WEB_ANALYTICS_SITE_TAG' : null,
 	].filter(Boolean)
+	if (missing.length > 0) {
+		throw new Error(
+			`缺少 ${missing.join('、')}，无法采集 Cloudflare Web Analytics。`,
+		)
+	}
+
+	const now = new Date()
+	const until = now.toISOString()
+	const since = new Date(
+		now.getTime() - DAYS * 24 * 60 * 60 * 1000,
+	).toISOString()
+	const totals = await fetchWebAnalytics({ since, until })
 	const output = {
+		schemaVersion: 2,
 		generatedAt: now.toISOString(),
 		range: {
-			from: sinceDate,
-			to: untilDate,
+			from: toDateKey(new Date(since)),
+			to: toDateKey(now),
 			days: DAYS,
 		},
 		hostname: HOSTNAME || null,
-		requests,
-		pageViews,
-		visits,
-		uniqueVisitors,
-		uniqueVisitorsApproximate: uniqueVisitors !== null && Boolean(HOSTNAME),
-		totalPageViews: totalPageViewsState.totalPageViews,
-		totalPageViewsStartedAt: totalPageViewsState.totalPageViewsStartedAt,
-		totalPageViewsUpdatedThrough:
-			totalPageViewsState.totalPageViewsUpdatedThrough,
-		dailyPageViews: totalPageViewsState.dailyPageViews,
-		source: sources.join('+') || null,
-		available,
+		visits: totals.visits,
+		pageViews: totals.pageViews,
+		excludeBots: true,
+		source: 'cloudflare-web-analytics:rumPageloadEventsAdaptiveGroups',
+		available: true,
 	}
 
 	await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(output, null, '\t')}\n`)
 	console.log(
-		`已更新站点统计: ${totalPageViewsState.totalPageViews ?? 0} 总访问量, ${uniqueVisitors ?? 0} 近 ${DAYS} 天访客`,
-	)
-}
-
-async function updateTotalPageViews({
-	existingStats,
-	pageViewsByDate,
-}) {
-	const dailyPageViews = {
-		...normalizeDailyPageViews(existingStats.dailyPageViews),
-		...normalizeDailyPageViews(pageViewsByDate),
-	}
-	const dates = Object.keys(dailyPageViews).sort()
-	const totalPageViews =
-		dates.length > 0
-			? dates.reduce((total, date) => total + dailyPageViews[date], 0)
-			: null
-
-	return {
-		dailyPageViews,
-		totalPageViews,
-		totalPageViewsStartedAt: dates[0] ?? null,
-		totalPageViewsUpdatedThrough: dates.at(-1) ?? null,
-	}
-}
-
-function normalizeDailyPageViews(value) {
-	if (!value || typeof value !== 'object' || Array.isArray(value)) {
-		return {}
-	}
-
-	return Object.fromEntries(
-		Object.entries(value).filter(
-			([date, count]) =>
-				/^\d{4}-\d{2}-\d{2}$/.test(date) &&
-				typeof count === 'number' &&
-				Number.isFinite(count) &&
-				count >= 0,
-		),
+		`已更新 Web Analytics：近 ${DAYS} 天 ${totals.visits} 次访问，${totals.pageViews} 次页面浏览。`,
 	)
 }
 
