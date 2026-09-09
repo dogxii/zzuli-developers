@@ -1,52 +1,15 @@
 {
-<<<<<<< HEAD
-	"generatedAt": "2026-09-08T22:01:01.155Z",
-	"range": {
-		"from": "2026-08-10",
-		"to": "2026-09-08",
-		"days": 30
-	},
-	"hostname": "zzuli.dev",
-	"requests": 56985,
-	"pageViews": 10913,
-	"visits": null,
-	"uniqueVisitors": 3298,
-	"uniqueVisitorsApproximate": true,
-	"totalPageViews": 10913,
-	"totalPageViewsStartedAt": "2026-08-25",
-	"totalPageViewsUpdatedThrough": "2026-09-08",
-	"dailyPageViews": {
-		"2026-08-25": 317,
-		"2026-08-26": 5063,
-		"2026-08-28": 616,
-		"2026-08-27": 611,
-		"2026-08-29": 341,
-		"2026-08-30": 877,
-		"2026-08-31": 506,
-		"2026-09-01": 448,
-		"2026-09-02": 156,
-		"2026-09-03": 235,
-		"2026-09-04": 444,
-		"2026-09-05": 398,
-		"2026-09-06": 420,
-		"2026-09-07": 151,
-		"2026-09-08": 330
-	},
-	"source": "cloudflare-graphql:httpRequests1dGroups",
-	"available": true
-=======
-	"schemaVersion": 2,
-	"generatedAt": null,
-	"range": {
-		"from": null,
-		"to": null,
-		"days": 30
-	},
-	"hostname": "zzuli.dev",
-	"visits": null,
-	"pageViews": null,
-	"excludeBots": false,
-	"source": null,
-	"available": false
->>>>>>> aca97db (refactor(site-stats): switch to Cloudflare Web Analytics data source)
+  "schemaVersion": 2,
+  "generatedAt": null,
+  "range": {
+    "from": null,
+    "to": null,
+    "days": 30
+  },
+  "hostname": "zzuli.dev",
+  "visits": null,
+  "pageViews": null,
+  "excludeBots": false,
+  "source": null,
+  "available": false
 }

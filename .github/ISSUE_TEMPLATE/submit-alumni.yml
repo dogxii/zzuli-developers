@@ -1,7 +1,7 @@
 name: 提交收录
 description: 提交 ZZULI.dev 名录信息
-title: "[收录] "
-labels: ["pending-review", "alumni-submission"]
+title: '[收录] '
+labels: ['pending-review', 'alumni-submission']
 body:
   - type: markdown
     attributes:
@@ -31,7 +31,7 @@ body:
     attributes:
       label: 博客（可选）
       description: 留空则不展示，自动获取博客文章
-      placeholder: 例如：https://blog.dogxi.me/
+      placeholder: 例如：https://dogxi.me/
 
   - type: input
     id: blog_name
